@@ -4,5 +4,7 @@ namespace App\Repositories;
 
 interface TodoRepositoryInterface
 {
-    public function getAllByUserId(int $userId): array;
+    public function getAllByTeamId(int $teamId): array;
+
+    public function create(array $data): object;
 }

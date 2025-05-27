@@ -6,15 +6,17 @@ use App\Repositories\TodoRepositoryInterface;
 
 class TodoService
 {
-    private TodoRepositoryInterface $todoRepository;
-
-    public function __construct(TodoRepositoryInterface $todoRepository)
+    public function __construct(private TodoRepositoryInterface $todoRepository)
     {
-        $this->todoRepository = $todoRepository;
     }
 
-    public function getTodosForUser(int $userId): array
+    public function getTodosForUser(int $teamId): array
     {
-        return $this->todoRepository->getAllByUserId($userId);
+        return $this->todoRepository->getAllByTeamId($teamId);
+    }
+
+    public function createTodo(array $data): object
+    {
+        return $this->todoRepository->create($data);
     }
 }

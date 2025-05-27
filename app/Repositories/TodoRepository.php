@@ -2,10 +2,23 @@
 
 namespace App\Repositories;
 
-class TodoRepository
+use App\Models\Todo;
+use App\Enums\TodoStatus;
+
+class TodoRepository implements TodoRepositoryInterface
 {
-    public function getAllByUserId(int $userId): array
+    public function getAllByTeamId(int $teamId): array
     {
-        return Todo::where('user_id', $userId)->get()->toArray();
+        return Todo::where('team_id', $teamId)->get()->toArray();
+    }
+
+    public function create(array $data): object
+    {
+        return Todo::create([
+            'team_id' => $data['team_id'],
+            'user_id' => $data['user_id'],
+            'title' => $data['title'],
+            'completed' => TodoStatus::Pending
+        ]);
     }
 }
