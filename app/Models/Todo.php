@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Todo extends Model
 {
-    //
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
 }
