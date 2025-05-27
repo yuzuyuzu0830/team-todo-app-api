@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateTodoRequest;
 use App\Services\TodoService;
 use Illuminate\Http\Request;
 
@@ -23,9 +24,9 @@ class TodoController extends Controller
         return response()->json($todos);
     }
 
-    public function create(Request $request)
+    public function create(CreateTodoRequest $request)
     {
-        $todo = $this->todoService->createTodo($request->all())->toArray();
+        $todo = $this->todoService->createTodo($request->validated())->toArray();
 
         return response()->json($todo);
     }
