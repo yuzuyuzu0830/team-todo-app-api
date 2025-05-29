@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Enums\TodoStatus;
 use App\Models\Team;
+use App\Models\Todo;
 use App\Models\User;
 use App\Services\TodoService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Mockery;
 use Tests\TestCase;
 
@@ -60,5 +62,24 @@ class TodoApiTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson($expectedResponse);
+    }
+
+    public function test_create_todo_with_wrong_format()
+    {
+        $todo = [
+            'user_id' => $this->user->id,
+            'team_id' => $this->user->team_id,
+        ];
+
+        $response = $this->actingAs($this->user)
+            ->postJson('/api/todos', $todo);
+        
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'タイトルは必須です',
+                'errors' => [
+                    'title' => ['タイトルは必須です']
+                ]
+            ]);
     }
 }
