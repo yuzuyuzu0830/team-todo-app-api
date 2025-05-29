@@ -15,8 +15,8 @@ class TodoService
         return $this->todoRepository->getAllByTeamId($teamId);
     }
 
-    public function createTodo(array $data): object
+    public function createTodo(array $data): array
     {
-        return $this->todoRepository->create($data);
+        return $this->todoRepository->create($data)->toArray();
     }
 }

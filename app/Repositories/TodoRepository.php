@@ -12,7 +12,7 @@ class TodoRepository implements TodoRepositoryInterface
         return Todo::where('team_id', $teamId)->get()->toArray();
     }
 
-    public function create(array $data): object
+    public function create(array $data): Todo
     {
         return Todo::create([
             'team_id' => $data['team_id'],

@@ -14,6 +14,7 @@ class LoginApiTest extends TestCase
     
     public function test_login_successfully() {
         $user = User::factory()->create([
+            'team_id' => 1,
             'email' => 'test@example.com',
             'password' => Hash::make('password'),
         ]);
@@ -30,6 +31,7 @@ class LoginApiTest extends TestCase
 
     public function test_login_with_wrong_password() {
         $user = User::factory()->create([
+            'team_id' => 1,
             'email' => 'test@example.com',
             'password' => Hash::make('password'),
         ]);
