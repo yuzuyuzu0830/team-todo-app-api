@@ -78,7 +78,7 @@ class TodoApiTest extends TestCase
             ->andReturn($expectedTodos);
 
         $response = $this->actingAs($this->user)
-            ->getJson('/api/todos');
+            ->getJson("/api/todos/{$this->user->id}");
 
         $response->assertStatus(200)
             ->assertJson($expectedTodos)

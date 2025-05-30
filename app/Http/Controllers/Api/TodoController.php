@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateTodoRequest;
 use App\Services\TodoService;
-use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
@@ -16,10 +16,9 @@ class TodoController extends Controller
         $this->todoService = $todoService;
     }
 
-    public function index(Request $request)
+    public function index(User $user)
     {
-        $teamId = $request->user()->team_id;
-        $todos = $this->todoService->getTodosForUser($teamId);
+        $todos = $this->todoService->getTodosForUser($user->team_id);
 
         return response()->json($todos);
     }
