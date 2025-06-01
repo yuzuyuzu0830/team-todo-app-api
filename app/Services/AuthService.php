@@ -14,7 +14,7 @@ class AuthService
         //
     }
 
-    public function login(string $email, string $password): string {
+    public function login(string $email, string $password): array {
         $user = $this->userRepository->findByEmail($email);
 
         if (!$user || !Hash::check($password, $user->password)) {
@@ -23,6 +23,9 @@ class AuthService
             ]);
         }
 
-        return $user->createToken('auth_token')->plainTextToken;
+        return [
+            'token' => $user->createToken('auth_token')->plainTextToken,
+            'user_id' => $user->id
+        ];
     }
 }

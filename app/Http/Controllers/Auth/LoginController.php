@@ -19,10 +19,11 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        $token = $this->authService->login($credentials['email'], $credentials['password']);
+        $user_data = $this->authService->login($credentials['email'], $credentials['password']);
         
         return response()->json([
-            'token' => $token,
+            'token' => $user_data['token'],
+            'user_id' => $user_data['user_id']
         ]);
     }
     
