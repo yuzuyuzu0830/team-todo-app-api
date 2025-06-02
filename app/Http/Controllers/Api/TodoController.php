@@ -20,7 +20,7 @@ class TodoController extends Controller
     {
         $todos = $this->todoService->getTodosForUser($user->team_id);
 
-        return response()->json($todos);
+        return response()->json(['todos' => $todos]);
     }
 
     public function create(CreateTodoRequest $request)
