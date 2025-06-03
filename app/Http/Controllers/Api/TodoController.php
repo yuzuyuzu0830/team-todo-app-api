@@ -25,8 +25,8 @@ class TodoController extends Controller
 
     public function create(CreateTodoRequest $request)
     {
-        $todo = $this->todoService->createTodo($request->validated());
+        $this->todoService->createTodo($request->validated());
 
-        return response()->json($todo);
+        return response()->json(['result' => 'ok']);
     }
 }

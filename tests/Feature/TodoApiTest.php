@@ -81,8 +81,8 @@ class TodoApiTest extends TestCase
             ->getJson("/api/todos/{$this->user->id}");
 
         $response->assertStatus(200)
-            ->assertJson($expectedTodos)
-            ->assertJsonMissingExact([$otherTeamTodo]);
+            ->assertJson(['todos' => $expectedTodos])
+            ->assertJsonMissing(['todos' => [$otherTeamTodo]]);
     }
 
     public function test_create_todo_successfully()
@@ -93,23 +93,15 @@ class TodoApiTest extends TestCase
             'title' => "テストTodo"
         ];
 
-        $expectedResponse = array_merge(
-            $todo,
-            [
-                'id' => 1,
-                'completed' => TodoStatus::Pending->value
-            ]);
-        
         $this->todoService->shouldReceive('createTodo')
             ->once()
-            ->with($todo)
-            ->andReturn($expectedResponse);
+            ->with($todo);
 
         $response = $this->actingAs($this->user)
             ->postJson('/api/todos', $todo);
 
         $response->assertStatus(200)
-            ->assertJson($expectedResponse);
+            ->assertJson(['result' => 'ok']);
     }
 
     public function test_create_todo_with_wrong_format()
