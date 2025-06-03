@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    public function __construct(private AuthService $authService)
-    {
-        //
-    }
+    public function __construct(private AuthService $authService) {}
 
     public function login(Request $request) {
         $credentials = $request->validate([
@@ -23,7 +20,8 @@ class LoginController extends Controller
         
         return response()->json([
             'token' => $user_data['token'],
-            'user_id' => $user_data['user_id']
+            'user_id' => $user_data['user_id'],
+            'team_id' => $user_data['team_id']
         ]);
     }
     

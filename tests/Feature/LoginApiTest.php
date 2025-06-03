@@ -30,7 +30,8 @@ class LoginApiTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'token',
-                'user_id'
+                'user_id',
+                'team_id'
             ])
             ->assertJson([ // 返されたuser_idが正しいユーザーのIDと一致することを確認
                 'user_id' => $user->id

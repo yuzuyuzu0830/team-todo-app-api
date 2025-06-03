@@ -25,7 +25,8 @@ class AuthService
 
         return [
             'token' => $user->createToken('auth_token')->plainTextToken,
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'team_id' => $user->team_id
         ];
     }
 }
